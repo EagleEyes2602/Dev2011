@@ -300,8 +300,43 @@ where sv.IdLop = l.Id
 -- SubQuery: truy vấn con, truy vấn lồng
 -- truy vẫn => dữ liệu (bảng)
 
--- 3. Cho biết sinh viên(Tên sinh viên, Tên khoa, Điểm Trung bình của sv đó) 
+-- 3. Cho biết thông tin sinh viên(Tên sinh viên, Tên khoa, Điểm Trung bình của sv đó) 
 -- có điểm trung bình cao nhất của từng khoa với điểm trung bình lấy từ bảng KetQua
+
+-- Lấy điểm trung bình của từng sinh viên
+
+select ttsv.Ten as [TenKhoa]
+		, ttsv.[TenLop] as [TenLop]
+		, ttsv.Ho
+		, ttsv.Ten
+		, ttsv.Email
+		, ttsv.NgaySinh
+		, ttsv.DiaChi
+		, ttsv.DTB
+from (
+	select k.Ten as [TenKhoa]
+			, l.Ten as [TenLop]
+			, sv.Ho
+			, sv.Ten
+			, sv.Email
+			, sv.NgaySinh
+			, sv.DiaChi
+			, DTBSV.DTB
+			, DENSE_RANK() over(partition by l.Id order by DTB desc) rn
+	from SinhVien sv
+	join Lop l on sv.IdLop = l.Id
+	join Khoa k on l.IdKhoa = k.Id
+	join (
+		select kq.IdSinhVien, AVG(kq.Diem) as [DTB]
+		from KetQua kq
+		group by kq.IdSinhVien
+	) DTBSV on sv.Id = DTBSV.IdSinhVien
+) ttsv
+where ttsv.rn = 1
+
+--Row_number() => đánh index không quan tâm đến giá trị của cột mình order
+--Rank => Giống with ties
+--DENSE_RANK => Giống Rank nhưng không quan tâm đến Rownumber
 
 --update SinhVien set DiemTrungBinh = 7.5
 --where Email = 'toan1999@gmail.com' or email = 'chinh1997@gmail.com'
