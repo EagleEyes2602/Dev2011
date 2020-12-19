@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Dev2012CSharp.CLI.Models
 {
-    public class Student
+    public class Student : Department
     {
+        // Trường
         private string ho;
         private string ten;
         private int tuoi;
@@ -17,6 +18,9 @@ namespace Dev2012CSharp.CLI.Models
         // read only
         // write only
         // read / write
+        // Thuộc tính
+        public int Id { get; set; }
+
         public string Ho
         {
             get { return ho; }
@@ -43,9 +47,27 @@ namespace Dev2012CSharp.CLI.Models
             set { gioiTinh = value; }
         }
 
+        /// <summary>
+        /// Phương thức khởi tạo có tham số
+        /// </summary>
+        /// <param name="Ho">Họ</param>
+        /// <param name="Ten">Tên</param>
+        /// <param name="Tuoi">Tuổi</param>
+        /// <param name="NgaySinh">Ngày sinh</param>
+        /// <param name="GioiTinh">Giới tính</param>
+        public Student(string Ho, string Ten, int Tuoi, DateTime NgaySinh, bool GioiTinh)
+        {
+            this.Ho = Ho;
+            this.Ten = Ten;
+            this.Tuoi = Tuoi;
+            this.NgaySinh = NgaySinh;
+            this.GioiTinh = GioiTinh;
+        }
+
         // Phương thức khởi tạo
         // Không tham số
         public Student()
+            : base()
         {
             this.Ho = "Nguyễn";
             this.Ten = "Đạt";
@@ -67,7 +89,8 @@ namespace Dev2012CSharp.CLI.Models
         /// <param name="Tuoi">Tuổi</param>
         /// <param name="NgaySinh">Ngày sinh</param>
         /// <param name="GioiTinh">Giới tính</param>
-        public Student(string Ho, string Ten, int Tuoi, DateTime NgaySinh, bool GioiTinh)
+        public Student(int IdKhoa, string TenKhoa, string Phong, string Ho, string Ten, int Tuoi, DateTime NgaySinh, bool GioiTinh)
+            : base(IdKhoa, TenKhoa, Phong)
         {
             this.Ho = Ho;
             this.Ten = Ten;
@@ -97,12 +120,16 @@ namespace Dev2012CSharp.CLI.Models
         /// <param name="Tuoi">Tuổi</param>
         /// <param name="NgaySinh">Ngày sinh</param>
         /// <param name="GioiTinh">Giới tính</param>
-        public void Print()
+        public override void Print()
         {
-            Console.WriteLine("Họ và tên: " + this.Ho + " " + this.Ten);
-            Console.WriteLine("Tuổi: " + this.Tuoi);
-            Console.WriteLine("Ngày sinh: " + this.NgaySinh.ToString("dd/MM/yyyy"));
-            Console.WriteLine("Giới tính: " + this.GioiTinh);
+            base.Print();
+            Console.WriteLine($"Thông tin sinh viên:: Id: {this.Id}, Họ và tên: {this.Ho} {this.Ten}, Tuổi: {this.Tuoi}, Giới tính: {(this.GioiTinh ? "Nam" : "Nữ")}");
         }
+
+        public override void Update(int id, string ten, string phong)
+        {
+            Console.WriteLine($"Thông tin sinh viên:: Họ và tên: {this.Ho} {this.Ten}, Tuổi: {this.Tuoi}, Giới tính: {(this.GioiTinh ? "Nam" : "Nữ")}");
+        }
+        
     }
 }

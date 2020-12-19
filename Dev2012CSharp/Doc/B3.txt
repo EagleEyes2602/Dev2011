@@ -1,0 +1,9 @@
+- Class: Trường, Thuộc tính, Phương thức, Contructor, Phạm vi sử dụng (public, private, protected, internal), Destructor
+- Hàm tĩnh (static)
+- OOP: (ORIENTED OBJECT PROGRAMING)
+	- Tính bao đóng (phạm vi sử dụng, GET, SET)
+	- Tính kế thừa: lớp cơ sở (lớp cha), lớp dẫn xuất (lớp con)
+	- Tính đa hình: ghi đè, nạp chồng
+	- Tính trừu tượng
+
+Biểu thức 3 ngôi: condition ? Case true : Case false

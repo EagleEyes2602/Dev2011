@@ -1,4 +1,5 @@
-﻿using Dev2012CSharp.CLI.Models;
+﻿using Dev2012CSharp.CLI.Interface;
+using Dev2012CSharp.CLI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -215,11 +216,61 @@ namespace Dev2012CSharp.CLI
                 // Được xây dựng dựa trên các kiểu dữ liệu nguyên thủy hoặc class khác, ...
                 // Trường, Thuộc tính, Phương thức
 
-                Student student1 = new Student();
-                Student student2 = new Student("Nguyễn", "Tuấn", 23, new DateTime(1997, 10, 20), true);
-                student1.Print();
+                //Student student1 = new Student();
+                //Student student2 = new Student("Nguyễn", "Tuấn", 23, new DateTime(1997, 10, 20), true);
+                //student1.Print();
+
+                //Student student3 = new Student(1, "CNTT", "A101", "Nguyễn Anh", "Tuấn", 23, new DateTime(2020, 1, 1), true);
+
+                //student3.Print();
+                //Employee e = new Employee();
+                //e.Speak();
+                //e.DoWork();
+                //e.EnviromentWork();
+
+                StudentService service = new StudentService();
+                var students = service.GetAll();
+                service.Print(students);
+                Console.WriteLine("Dữ liệu ban đầu ==============================================================");
+                service.Insert(new Student()
+                {
+                    Id = 3,
+                    Ho = "Nguyễn",
+                    Ten = "Thảo",
+                    Tuoi = 20
+                });
+                // sau khi insert
+                service.Print(students);
+                Console.WriteLine("Sau khi insert ==============================================================");
+                service.Update(new Student()
+                {
+                    Id = 3,
+                    Ho = "Nguyễn",
+                    Ten = "Dũng",
+                    Tuoi = 20
+                });
+                // sau khi update
+                service.Print(students);
+                Console.WriteLine("Sau khi update ==============================================================");
+                service.Delete(new Student
+                {
+                    Id = 3,
+                    Ho = "Nguyễn",
+                    Ten = "Thảo",
+                    Tuoi = 20
+                });
+                // sau khi xóa
+                service.Print(students);
+                Console.WriteLine("Sau khi delete ==============================================================");
                 #endregion
             }
+
+            // exception
+            // collection
+            // delegate
+            // lambda expression
+            // linq
+            // ADO.net, EF6, Dapper
 
             Console.WriteLine("END");
             Console.ReadKey();
