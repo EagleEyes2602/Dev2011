@@ -1,6 +1,7 @@
 ﻿using Dev2012CSharp.CLI.Interface;
 using Dev2012CSharp.CLI.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,7 +33,7 @@ namespace Dev2012CSharp.CLI
             // Console.Read
             // Console.ReadKey
             // Console.ReadLine
-            int runMode = 3;
+            int runMode = 5;
             if (runMode == 0)
             {
                 #region Cấu trúc rẽ nhánh
@@ -264,9 +265,176 @@ namespace Dev2012CSharp.CLI
                 Console.WriteLine("Sau khi delete ==============================================================");
                 #endregion
             }
+            else if (runMode == 4)
+            {
+                // array
+                // C1. Khai báo mảng int với cố định 10 phần tử
+                int[] num1 = new int[11];
+                // Set
+                num1[0] = 10;
+                // Get
+                //Console.WriteLine($"num1[0]:{num1[0]}");
+
+                // C2. Khai báo mảng int số lượng phẩn tử linh động
+                int[] num2 = new int[] { 234, 34, 643, 1, 23, 12, 354, 7, 56 };
+
+                // C3. Khai báo mảng int giống C2 nhưng ngắn hơn
+                int[] num3 = { 6789, 56, 2, 346, 4, 9, 576, 5, 234, 56, 567, 97689, 56, 2, 345, 3, 44 };
+
+                Console.WriteLine("Danh sách phần tử mảng num3:");
+                for (int i = 0; i < num3.Count(); i++)
+                {
+                    Console.WriteLine($"num3[{i}]:{num3[i]}");
+                }
+
+                // Ref & Out
+                int a = 10;
+                int b = 20;
+                Console.WriteLine($"Start A: {a} / B: {b}");
+                Swap(ref a, ref b);
+                Console.WriteLine($"End A: {a} / B: {b}");
+
+                Console.WriteLine("Sắp xếp mảng num3:");
+                // Sắp xếp
+                for (int i = 0; i < num3.Length - 1; i++)
+                {
+                    for (int j = i; j < num3.Length; j++)
+                    {
+                        if (num3[i] > num3[j])
+                        {
+                            Swap(ref num3[i], ref num3[j]);
+                        }
+                    }
+                }
+
+                Array.Sort(num3);
+
+                int arrIndex = Array.IndexOf(num3, 10);
+
+                // In mảng
+                for (int i = 0; i < num3.Count(); i++)
+                {
+                    Console.WriteLine($"num3[{i}]:{num3[i]}");
+                }
+            }
+            else if (runMode == 5)
+            {
+                // collection
+                // ArrayList
+                Console.WriteLine("---------------------- ArrayList ----------------------");
+                ArrayList arrayList = new ArrayList() { 3, "Devmaster", null, 'á' };
+                var arr01 = arrayList[0];
+                arrayList[0] = "3 Năm";
+                arrayList.Add("VietQQ");
+                arrayList.Insert(2, 10);
+                foreach (var item in arrayList)
+                {
+                    Console.WriteLine(item);
+                }
+                arrayList.Clear();
+
+                // HashTable
+                Console.WriteLine("---------------------- HashTable ----------------------");
+                Hashtable hashtable = new Hashtable();
+                hashtable.Add(1, "VietQQ");
+                hashtable.Add('a', null);
+                hashtable.Add('2', "TuanNA");
+                hashtable.Remove('a');
+                foreach (DictionaryEntry item in hashtable)
+                {
+                    Console.WriteLine($"Key: {item.Key}_ Value: {item.Value}");
+                }
+
+                // SortedList
+                Console.WriteLine("---------------------- SortedList ----------------------");
+                SortedList sortedList = new SortedList();
+                sortedList.Add(1, "VietQQ");
+                sortedList.Add(12, null);
+                sortedList.Add(6, "TuanNA");
+                sortedList.Add(8, "TuanDA");
+                sortedList.Add(10, "HungNS");
+                sortedList.Add(2, "HungPS");
+                sortedList.Add(-1, "DatNQ");
+                foreach (DictionaryEntry item in sortedList)
+                {
+                    Console.WriteLine($"Key: {item.Key}_ Value: {item.Value}");
+                }
+
+                // Generic Collection
+                // List<>
+                Console.WriteLine("---------------------- List ----------------------");
+                List<Student> students = new List<Student>()
+                {
+                    new Student()
+                    {
+                        Ho = "Hoàng Trung",
+                        Ten = "Kiên",
+                        Tuoi = 30
+                    }
+                };
+
+                Student student1 = new Student();
+                student1.Ho = "Nguyễn Anh";
+                student1.Ten = "Tuấn";
+                student1.Tuoi = 23;
+
+                Student student2 = new Student();
+                student2.Ho = "Quốc";
+                student2.Ten = "Việt";
+                student2.Tuoi = 23;
+
+                students.Add(student1);
+                students.Add(student2);
+                // set
+                students[0] = new Student()
+                {
+                    Ho = "Phạm Sỹ",
+                    Ten = "Hưng",
+                    Tuoi = 26
+                };
+
+                // get
+                var studentTemp = students[0];
+                studentTemp.Print();
+                foreach (var student in students)
+                {
+                    student.Print();
+                }
+
+                // Dictionary<,>
+                Console.WriteLine("---------------------- Dictionary ----------------------");
+                Dictionary<string, Student> dic = new Dictionary<string, Student>()
+                {
+                    { "1", student1 },
+                    {
+                        "2", new Student(){
+                            Ho = "Nguyễn Sinh",
+                            Ten = "Hùng",
+                            Tuoi = 23
+                        }
+                    }
+                };
+                dic.Add("3", student1);
+                dic.Add("4", student2);
+
+                //// Get
+                //dic["3"].Print();
+                //// Set
+                //dic["3"] = student1;
+
+                foreach (KeyValuePair<string, Student> item in dic)
+                {
+                    Console.WriteLine($"Key: {item.Key}");
+                    Console.WriteLine("Value");
+                    item.Value.Print();
+                }
+
+                // SortedList
+                SortedList<string, Student> sortedListGeneric = new SortedList<string, Student>();
+            }
+
 
             // exception
-            // collection
             // delegate
             // lambda expression
             // linq
@@ -274,6 +442,13 @@ namespace Dev2012CSharp.CLI
 
             Console.WriteLine("END");
             Console.ReadKey();
+        }
+
+        static void Swap(ref int intA, ref int intB)
+        {
+            int temp = intA;
+            intA = intB;
+            intB = temp;
         }
 
         static int PrintArr(int[] arr)
