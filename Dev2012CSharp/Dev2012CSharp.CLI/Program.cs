@@ -5,19 +5,22 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
+using I = Dev2012CSharp.CLI.Interface;
 
 namespace Dev2012CSharp.CLI
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private delegate string DelegateStr(string in1, string in2);
+
+        private static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
             Console.WriteLine("START");
             // Một số kiểu dữ liệu cơ bản trong C#
             // char, string
-            // Số: 
+            // Số:
             //  int: int16, int32, int 64; long
             //  decimal, double, float
             // bool
@@ -33,12 +36,13 @@ namespace Dev2012CSharp.CLI
             // Console.Read
             // Console.ReadKey
             // Console.ReadLine
-            int runMode = 5;
+            int runMode = 7;
             if (runMode == 0)
             {
                 #region Cấu trúc rẽ nhánh
+
                 int a = 100, b = 100;
-                // Các biểu thức: 
+                // Các biểu thức:
                 // Số: >, >=, <, <=, ==, !=
                 // ==, !=
                 // = gán
@@ -77,6 +81,7 @@ namespace Dev2012CSharp.CLI
                     case 1:
                         // a == 1 thì xử lý tại đây
                         break;
+
                     case 2:
                     case 3:
                         // a == 2 || a == 3 thì xử lý tại đây
@@ -88,11 +93,13 @@ namespace Dev2012CSharp.CLI
                         break;
                 }
                 // Switch case lồng nhau
+
                 #endregion Cấu trúc rẽ nhánh
             }
             else if (runMode == 1)
             {
                 #region Cấu trúc lặp
+
                 // while
                 // Nếu biểu thức bên trong while() còn đúng thì vẫn lặp tiếp
                 // 1. Kiểm tra biểu thức trong while
@@ -175,11 +182,13 @@ namespace Dev2012CSharp.CLI
                 {
                     Console.WriteLine(item);
                 }
-                #endregion
+
+                #endregion Cấu trúc lặp
             }
             else if (runMode == 2)
             {
                 #region Cấu trúc nhảy
+
                 int[] arr = new[] { 1, 6, 12, 0, 3, 6, 5, 6 };
 
                 // Break: thoát khỏi cấu trúc hiện tại
@@ -208,11 +217,13 @@ namespace Dev2012CSharp.CLI
 
                 // Return
                 Console.WriteLine($"Mảng có {PrintArr(arr)} phần tử");
-                #endregion
+
+                #endregion Cấu trúc nhảy
             }
             else if (runMode == 3)
             {
                 #region OOP
+
                 // Class (Lớp)
                 // Được xây dựng dựa trên các kiểu dữ liệu nguyên thủy hoặc class khác, ...
                 // Trường, Thuộc tính, Phương thức
@@ -263,7 +274,8 @@ namespace Dev2012CSharp.CLI
                 // sau khi xóa
                 service.Print(students);
                 Console.WriteLine("Sau khi delete ==============================================================");
-                #endregion
+
+                #endregion OOP
             }
             else if (runMode == 4)
             {
@@ -432,10 +444,119 @@ namespace Dev2012CSharp.CLI
                 // SortedList
                 SortedList<string, Student> sortedListGeneric = new SortedList<string, Student>();
             }
+            else if (runMode == 6)
+            {
+                // namespace
+                Dev2012CSharp.CLI.Interface.StudentService service = new Dev2012CSharp.CLI.Interface.StudentService();
+                I.StudentService serviceI = new I.StudentService();
 
+                // exception
+                // VD: kết nối đến DB
+                // B1. Thực hiện xây dựng câu lệnh
+                // "seelct * from table"
+                // B2. Mở kết nối đến DB
+                // B3. Thực thi câu lệnh đã xây dựng ở B1 và lấy kết quả trả về
+                // B4. Đóng kết nối
+                try
+                {
+                    // Những câu lệnh có khả năng sinh lỗi
+                    int tu = 10;
+                    int mau = 0;
+                    float ketQua = tu / mau;
 
-            // exception
-            // delegate
+                    Student student = null;
+                    Console.WriteLine(student.Ho);
+                }
+                catch (NullReferenceException ex)
+                {
+                    Console.WriteLine($"Lỗi rổi: Không thể thao tác với dữ liệu null. {ex.Message}");
+                }
+                catch (DivideByZeroException ex)
+                {
+                    throw new VietQQException($"Lỗi rổi: Không thể chia 0. {ex.Message}");
+                    //Console.WriteLine($"Lỗi rổi: Không thể chia 0. {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Lỗi rổi: {ex.Message}");
+                    // Trong trường hợp trong TRY xảy ra lỗi thì sẽ đi vào catch
+                    //throw;
+                }
+                finally
+                {
+                    // Lúc nào cũng vào đây dù có lỗi hay không
+                }
+            }
+            else if (runMode == 7)
+            {
+                // delegate
+                //() => (string)
+                //() => ()
+
+                DelegateStr delegateStr = new DelegateStr(ConvertStr);
+
+                // MultiCasting
+                delegateStr += ConcatStr;
+                delegateStr -= ConvertStr;
+                string result = delegateStr("Devmaster", "Academy");
+                Console.WriteLine(result);
+
+                // Hàm nặc danh
+                DelegateStr dele = delegate (string a, string b)
+                {
+                    return a + " " + b;
+                };
+
+                // Hàm mũi tên
+                // Lambda Expression
+                DelegateStr dele1 = (string a, string b) =>
+                {
+                    return a + " " + b;
+                };
+
+                string res = dele("a", "b");
+
+                List<Student> students = new List<Student>();
+
+                // 3 loại delegate do hệ thống tạo ra
+                // Action(16 param) (16 input) => void
+                Action<string, string> action = (string inA, string inB) =>
+                {
+                    Console.WriteLine(inA + " " + inB);
+                };
+
+                action += (string inA, string inB) =>
+                {
+                    Console.WriteLine(inA + " " + inB);
+                };
+
+                action("Quản Quốc", "Việt");
+
+                // Func(17 param) (16 input) => 1 dataType
+                Func<string, string> func = (string name) =>
+                {
+                    return name + " đẹp zai";
+                };
+                Console.WriteLine(func("Việt"));
+
+                // Predicate (1 input) => mặc định bool
+                Predicate<string> predicate = (string check) =>
+                {
+                    //if (check == "Việt đẹp zai")
+                    //{
+                    //    return true;
+                    //}
+                    //return false;
+                    return check == "Việt đẹp zai";
+                };
+
+                bool checkVietDZ = predicate("Việt đẹp zai");
+                Console.WriteLine($"Việt có đz không? {checkVietDZ}");
+
+                IEnumerable<Student> studentWhere = students.Where((x) => x.Ho == "Việt");
+
+            }
+
             // lambda expression
             // linq
             // ADO.net, EF6, Dapper
@@ -444,14 +565,14 @@ namespace Dev2012CSharp.CLI
             Console.ReadKey();
         }
 
-        static void Swap(ref int intA, ref int intB)
+        private static void Swap(ref int intA, ref int intB)
         {
             int temp = intA;
             intA = intB;
             intB = temp;
         }
 
-        static int PrintArr(int[] arr)
+        private static int PrintArr(int[] arr)
         {
             foreach (var item in arr)
             {
@@ -462,6 +583,28 @@ namespace Dev2012CSharp.CLI
                 Console.WriteLine(item);
             }
             return arr.Count();
+        }
+
+        private static string ConvertStr(string text1, string text2)
+        {
+            string output = "Ahihi::" + text1 + " " + text2;
+            Console.WriteLine(output);
+            return output;
+        }
+
+        private static string ConcatStr(string text1, string text2)
+        {
+            string output = "Ahoho::" + text1 + " " + text2;
+            Console.WriteLine(output);
+            return output;
+        }
+    }
+
+    internal class VietQQException : Exception
+    {
+        public VietQQException(string message)
+            : base(message)
+        {
         }
     }
 }

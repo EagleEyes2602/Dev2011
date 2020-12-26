@@ -5,16 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dev2012CSharp.CLI.Interface
+namespace Dev2012CSharp.CLI
 {
-    public class StudentService : IStudentService
+    namespace Interface
     {
-        public List<Student> students;
-        public StudentService()
+        public class StudentService : IStudentService
         {
-            // Khởi tạo dữ liệu
-            // Coi như đây là 1 DB
-            students = new List<Student>()
+            public List<Student> students;
+            public StudentService()
+            {
+                // Khởi tạo dữ liệu
+                // Coi như đây là 1 DB
+                students = new List<Student>()
             {
                 new Student()
                 {
@@ -31,47 +33,48 @@ namespace Dev2012CSharp.CLI.Interface
                     Tuoi = 23,
                 },
             };
-        }
+            }
 
-        public List<Student> GetAll()
-        {
-            // Trả về toàn bộ dữ liệu
-            return students;
-        }
-
-        public Student GetById(int id)
-        {
-            // Lấy ra thông tin những sinh viên có Id = id
-            // select * from students where id = @id
-            var result = students.Where(x => x.Id == id);
-
-            // Top 1
-            return result.FirstOrDefault();
-        }
-
-        public int Insert(Student student)
-        {
-            students.Add(student);
-            return 1;
-        }
-
-        public int Update(Student student)
-        {
-            this.Delete(student);
-            this.Insert(student);
-            return 1;
-        }
-        public int Delete(Student student)
-        {
-            students.Remove(students.Where(x=>x.Id == student.Id).FirstOrDefault());
-            return 1;
-        }
-
-        public void Print(List<Student> students)
-        {
-            foreach (var item in students)
+            public List<Student> GetAll()
             {
-                item.Print();
+                // Trả về toàn bộ dữ liệu
+                return students;
+            }
+
+            public Student GetById(int id)
+            {
+                // Lấy ra thông tin những sinh viên có Id = id
+                // select * from students where id = @id
+                var result = students.Where(x => x.Id == id);
+
+                // Top 1
+                return result.FirstOrDefault();
+            }
+
+            public int Insert(Student student)
+            {
+                students.Add(student);
+                return 1;
+            }
+
+            public int Update(Student student)
+            {
+                this.Delete(student);
+                this.Insert(student);
+                return 1;
+            }
+            public int Delete(Student student)
+            {
+                students.Remove(students.Where(x => x.Id == student.Id).FirstOrDefault());
+                return 1;
+            }
+
+            public void Print(List<Student> students)
+            {
+                foreach (var item in students)
+                {
+                    item.Print();
+                }
             }
         }
     }
