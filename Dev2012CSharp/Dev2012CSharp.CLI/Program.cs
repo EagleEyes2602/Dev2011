@@ -1,8 +1,13 @@
-﻿using Dev2012CSharp.CLI.Interface;
+﻿using Dapper;
+using Dev2012CSharp.CLI.Helpers;
+using Dev2012CSharp.CLI.Interface;
 using Dev2012CSharp.CLI.Models;
+using Dev2012CSharp.CLI.Models.EF;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
@@ -13,7 +18,7 @@ namespace Dev2012CSharp.CLI
     internal class Program
     {
         private delegate string DelegateStr(string in1, string in2);
-
+        static QLSVEntities db = new QLSVEntities();
         private static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -36,7 +41,7 @@ namespace Dev2012CSharp.CLI
             // Console.Read
             // Console.ReadKey
             // Console.ReadLine
-            int runMode = 7;
+            int runMode = 10;
             if (runMode == 0)
             {
                 #region Cấu trúc rẽ nhánh
@@ -520,6 +525,7 @@ namespace Dev2012CSharp.CLI
 
                 // 3 loại delegate do hệ thống tạo ra
                 // Action(16 param) (16 input) => void
+                // lambda expression
                 Action<string, string> action = (string inA, string inB) =>
                 {
                     Console.WriteLine(inA + " " + inB);
@@ -555,12 +561,93 @@ namespace Dev2012CSharp.CLI
 
                 IEnumerable<Student> studentWhere = students.Where((x) => x.Ho == "Việt");
 
+                // linq
+                // linq method
+                var resStudents = students.Where(x => x.Ten == "Việt").OrderBy(x => x.NgaySinh);
+
+
+                // linq query
+                StudentService studentService = new StudentService();
+                var lstStudent = studentService.InitData();
+
+                ResultService resultService = new ResultService();
+                var lstResult = resultService.InitData();
+
+                SubjectService subjectService = new SubjectService();
+                var lstSubject = subjectService.InitData();
+
+                var resStudents1 = (from s in lstStudent
+                                    join r in lstResult on s.Id equals r.StudentId
+                                    join su in lstSubject on r.SubjectId equals su.Id
+                                    where r.Score > 5
+                                    select new { HoTen = s.Ho + " " + s.Ten, s.Tuoi, r.Score, su.Name }).ToList();
             }
+            else if (runMode == 8)
+            {
+                // ORM OBJECT RELATIONSHIP MANAGERMENT
 
-            // lambda expression
-            // linq
-            // ADO.net, EF6, Dapper
+                // ADO.net
 
+                DataSet dataset = new DataSet();
+
+                // 1. Xây dựng câu lệnh
+                //chuỗi kết nối đến nguồn dữ liệu
+                string connStr = @"Server=DESKTOP-A30ET4Q\EAGLEMSSQL17;Database=QLSV;Trusted_Connection=True;";
+
+                //đối tượng kết nối tới cơ sở dữ liệu
+                SqlConnection sqlconn = new SqlConnection(connStr);
+
+                string sql = "select * from SinhVien";
+                //Command điều khiển truy vấn sql
+                SqlCommand sqlcmd = new SqlCommand(sql);
+
+                // 2. Mở connection
+                sqlconn.Open();
+
+                // 3. Thực thi câu lệnh
+                // 4. Nhận kết quả
+                // ExecuteNonQuery: Giá trị trả về là số lượng record được tác động (Insert, Update, Delete)
+                // ExecuteScalar: Giá trị trả về là 1 cell dữ liệu
+                // ExecuteReader: Giá trị trả về là 1 table
+
+                //var result = sqlcmd.ExecuteReader();
+
+                var sqladapter = new SqlDataAdapter(sql, sqlconn);
+
+                sqladapter.Fill(dataset);
+                var res = DataTableHelper.ConvertDataTableToGenericList<SinhVienModel>(dataset.Tables[0]);
+                sqladapter.Dispose();
+                foreach (var item in res)
+                {
+                    item.Print();
+                }
+                // 5. Đóng connection
+                sqlconn.Close();
+            }
+            else if (runMode == 9)
+            {
+                // EF6
+                var sv = db.SinhVien.ToList();
+                foreach (var item in sv)
+                {
+                    Console.WriteLine($"Id: {item.Id}, IdLop: {item.IdLop}, HoVaTen: {item.Ho} {item.Ten}, NgaySinh: {item.NgaySinh.Value.ToString("dd/MM/yyyy")}, Email: {item.Email}, DiaChi: {item.DiaChi}.");
+                }
+            }
+            else if (runMode == 10)
+            {
+                // Dapper
+                GenericService<SinhVienModel> genericService = new GenericService<SinhVienModel>();
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@top", 100);
+                param.Add("@totalRecord", 0, direction: ParameterDirection.Output);
+                var lstSinhVien = genericService.ExcuteMany("spud_GetTopStudentByClass", param);
+                int totalRecord = param.Get<int>("@totalRecord");
+
+                foreach (var item in lstSinhVien)
+                {
+                    Console.WriteLine($"Id: {item.Id}, IdLop: {item.IdLop}, HoVaTen: {item.Ho} {item.Ten}, NgaySinh: {item.NgaySinh.ToString("dd/MM/yyyy")}, Email: {item.Email}, DiaChi: {item.DiaChi}.");
+                }
+            }
             Console.WriteLine("END");
             Console.ReadKey();
         }

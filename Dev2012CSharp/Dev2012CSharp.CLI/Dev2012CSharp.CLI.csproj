@@ -33,28 +33,142 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.78\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.5.0.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.5.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.5.0.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\DataTableHelper.cs" />
+    <Compile Include="Helpers\GenericService.cs" />
     <Compile Include="Interface\IStudentService.cs" />
+    <Compile Include="Interface\ResultService.cs" />
     <Compile Include="Interface\StudentService.cs" />
+    <Compile Include="Interface\SubjectService.cs" />
     <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\EF\fn_split_Result.cs">
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\KetQua.cs">
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\Khoa.cs">
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\LoaiHocBong.cs">
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\Lop.cs">
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\MonHoc.cs">
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\QLSV.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLSV.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\QLSV.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\QLSV.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLSV.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\SinhVien.cs">
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\spud_GetTopStudentByClass_Result.cs">
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\sp_helpdiagrams_Result.cs">
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\sysdiagrams.cs">
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\vw_GetAllData.cs">
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\vw_GetSinhVien.cs">
+      <DependentUpon>QLSV.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\Result.cs" />
+    <Compile Include="Models\SinhVienModel.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\Subject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="Models\EF\QLSV.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QLSV.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\EF\QLSV.edmx.diagram">
+      <DependentUpon>QLSV.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Models\EF\QLSV.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>QLSV.Context.cs</LastGenOutput>
+      <DependentUpon>QLSV.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\EF\QLSV.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLSV.edmx</DependentUpon>
+      <LastGenOutput>QLSV.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

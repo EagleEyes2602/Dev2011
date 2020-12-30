@@ -76,6 +76,31 @@ namespace Dev2012CSharp.CLI
                     item.Print();
                 }
             }
+
+            public List<Student> InitData()
+            {
+                return new List<Student>()
+                {
+                    new Student()
+                    {
+                        Id = 1,
+                        Ho = "Nguyễn Văn",
+                        Ten = "Tiến",
+                        GioiTinh = true,
+                        NgaySinh = new DateTime(1994, 3, 8),
+                        Tuoi = 26,
+                    },
+                    new Student()
+                    {
+                        Id = 2,
+                        Ho = "Nguyễn Anh",
+                        Ten = "Tuấn",
+                        GioiTinh = true,
+                        NgaySinh = new DateTime(1997, 10, 10),
+                        Tuoi = 23,
+                    },
+                };
+            }
         }
     }
 }
