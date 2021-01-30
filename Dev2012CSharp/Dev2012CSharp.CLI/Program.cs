@@ -648,6 +648,13 @@ namespace Dev2012CSharp.CLI
                     Console.WriteLine($"Id: {item.Id}, IdLop: {item.IdLop}, HoVaTen: {item.Ho} {item.Ten}, NgaySinh: {item.NgaySinh.ToString("dd/MM/yyyy")}, Email: {item.Email}, DiaChi: {item.DiaChi}.");
                 }
             }
+            Student[] students1 = new Student[]{
+                new Student()
+                {
+
+                }
+            };
+
             Console.WriteLine("END");
             Console.ReadKey();
         }

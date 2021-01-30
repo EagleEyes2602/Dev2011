@@ -1,0 +1,31 @@
+﻿@model Dev2012.Web.ViewModel.AboutViewModel
+@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>
+
+<p>@Html.Action("PartialAct", "Home")</p>
+
+<div class="row">
+    <h3>Thông tin tài khoản</h3>
+    <dl class="dl-horizontal">
+        <dt>Id</dt>
+        <dd>@Model.Account.Id</dd>
+        <dt>Tên người dùng</dt>
+        <dd>@Model.Account.UserName</dd>
+        <dt>Email</dt>
+        <dd>@Model.Account.Email</dd>
+    </dl>
+    <table class="table table-bordered table-striped">
+        @foreach (var item in Model.AccountInformation)
+        {
+            <tr>
+                <th>@item.Title</th>
+                <td>@item.Detail</td>
+            </tr>
+        }
+    </table>
+</div>
