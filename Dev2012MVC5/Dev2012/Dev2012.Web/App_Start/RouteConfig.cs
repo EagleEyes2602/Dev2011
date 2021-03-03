@@ -12,7 +12,7 @@ namespace Dev2012.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            // https://www.devmaster.vn/viet-chung-toi
+            // https://www.devmaster.vn/ve-chung-toi
             // Rewrite URL
             routes.MapRoute(
                 name: "about",

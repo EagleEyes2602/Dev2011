@@ -41,6 +41,73 @@
 </div>
 
 <div class="row">
+    <form id="form1" action="/home/AccountAdd" method="post">
+        <div class="form-group">
+            <label for="id">Id</label>
+            <input type="number" class="form-control" id="id" aria-describedby="emailHelp" placeholder="Id" name="id">
+        </div>
+        <div class="form-group">
+            <label for="userName">UserName</label>
+            <input type="text" class="form-control" id="userName" placeholder="UserName" name="userName">
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <button class="btn btn-primary" onclick="SubmitForm1()">Submit Ajax</button>
+</div>
+
+<div class="row">
+    <form id="form2" action="/home/AccountAddModel" method="post">
+        <div class="form-group">
+            <label for="id">Id</label>
+            <input type="number" class="form-control" id="id" aria-describedby="emailHelp" placeholder="Id" name="data.Id">
+        </div>
+        <div class="form-group">
+            <label for="userName">UserName</label>
+            <input type="text" class="form-control" id="userName" placeholder="UserName" name="data.UserName">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="data.Email">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<div class="row">
+    <form id="form3" action="/home/AccountAddRange" method="post">
+        <div class="form-group">
+            <label for="id1">Id 1</label>
+            <input type="number" class="form-control" id="id1" aria-describedby="emailHelp" placeholder="Id" name="data[0].Id">
+        </div>
+        <div class="form-group">
+            <label for="userName1">UserName 1</label>
+            <input type="text" class="form-control" id="userName1" placeholder="UserName" name="data[0].UserName">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address 1</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="data[0].Email">
+        </div>
+        <div class="form-group">
+            <label for="id2">Id 2</label>
+            <input type="number" class="form-control" id="id2" aria-describedby="emailHelp" placeholder="Id" name="data[1].Id">
+        </div>
+        <div class="form-group">
+            <label for="userName2">UserName 2</label>
+            <input type="text" class="form-control" id="userName2" placeholder="UserName" name="data[1].UserName">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail2">Email address 2</label>
+            <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter email" name="data[1].Email">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<div class="row">
     <h3>Danh sách tài khoản</h3>
     <table class="table table-bordered table-striped">
         <tr>
@@ -77,3 +144,37 @@
         }
     </table>
 </div>
+
+<script>
+    // Form1
+    function SubmitForm1() {
+        // 1.Data Collection
+        //id = $('#form1 #id').val();
+        //var id = $('#form1 #id').val();
+
+        let idVal = $('#form1 #id').val();
+        let userNameVal = $('#form1 #userName').val();
+        let emailVal = $('#form1 #email').val();
+
+        // 2.Ajax submit data
+        $.ajax({
+            url: '/home/AccountAddAjax',
+            type: 'POST',
+            dataType: 'json',
+            data: { id: idVal, userName: userNameVal, email: emailVal },
+        })
+            .done(function (res) {
+                console.log("success");
+                console.log(res);
+            })
+            .fail(function (err) {
+                console.log("error");
+                console.log(err);
+            })
+            .always(function () {
+                console.log("complete");
+            });
+
+    }
+
+</script>

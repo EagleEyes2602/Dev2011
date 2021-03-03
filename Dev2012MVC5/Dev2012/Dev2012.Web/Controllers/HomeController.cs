@@ -142,5 +142,47 @@ namespace Dev2012.Web.Controllers
             a.FirstOrDefault();
             return PartialView();
         }
+
+        // CamelCase userName
+        // Cap CamelCase ~ PascalCase UserName
+        // SnakeCase user_name
+        // AllCapSnakeCase USER_NAME
+        // KebabCase user-name url
+        [HttpPost]
+        public ActionResult AccountAdd(int id, string userName, string email)
+        {
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult AccountAddModel(AccountModel data)
+        {
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult AccountAddRange(List<AccountModel> data)
+        {
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpPost]
+        public ActionResult AccountAddAjax(int id, string userName, string email)
+        {
+            return Json(new { responseCode = "00", responseMessage = "Thành công" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AccountAddModelAjax(AccountModel data)
+        {
+            return Json(new { responseCode = "00", responseMessage = "Thành công" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AccountAddRangeAjax(List<AccountModel> data)
+        {
+            return Json(new { responseCode = "00", responseMessage = "Thành công" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
