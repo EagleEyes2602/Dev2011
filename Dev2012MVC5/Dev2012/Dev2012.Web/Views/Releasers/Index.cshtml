@@ -1,0 +1,144 @@
+﻿@model Dev2012.Web.ViewModel.BasePaging<Dev2012.Web.Models.Releaser>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Mã
+        </th>
+        <th>
+            Tên
+        </th>
+        <th>
+            Chú thích
+        </th>
+        <th>
+            Trạng thái
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Data)
+    {
+        <tr>
+            <td>
+                @item.Code
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Notes
+            </td>
+            <td>
+                @item.Status
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
+
+@* 1. Tìm giao diện Paging *@
+@* 2. Dùng razor view để dựng paging *@
+@{
+    @* 2.1. Tính tổng số trang *@
+    int totalPage = (int)Math.Ceiling((decimal)Model.TotalRecord / Model.PageSize);
+
+    @* 2.2. Số trang muốn hiển thị *@
+    int pageDisplay = 5;
+    int marginPage = (pageDisplay - 1) / 2;
+
+    int startPage = 0;
+    int endPage = 0;
+
+    if (totalPage <= pageDisplay)
+    {
+        startPage = 1;
+        endPage = totalPage;
+    }
+    else
+    {
+        // Lệch trái
+        if (Model.PageCount - marginPage <= 0)
+        {
+            startPage = 1;
+            endPage = pageDisplay;
+        }
+        else
+        {
+            // Lệch phải
+            if (totalPage - Model.PageCount < marginPage)
+            {
+                startPage = totalPage - pageDisplay + 1;
+                endPage = totalPage;
+            }
+            // Căn giữa
+            else
+            {
+                startPage = Model.PageCount - marginPage;
+                endPage = Model.PageCount + marginPage;
+            }
+        }
+    }
+
+    string preDisabled = "";
+    string nextDisabled = "";
+
+    int preIndex = Model.PageCount - 1;
+    int nextIndex = Model.PageCount + 1;
+
+    if (Model.PageCount == 1)
+    {
+        preDisabled = "disabled";
+    }
+    if (Model.PageCount == totalPage)
+    {
+        nextDisabled = "disabled";
+    }
+}
+<style>
+    ul.pagination li.page-item.disabled {
+        pointer-events: none;
+    }
+</style>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item @preDisabled">
+            <a class="page-link" href="/Releasers/Index?PageCount=@preIndex" aria-label="Previous">
+                <span aria-hidden="true"><</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        @for (int i = startPage; i <= endPage; i++)
+        {
+            if (i == Model.PageCount)
+            {
+                <li class="page-item active"><a class="page-link" href="/Releasers/Index?PageCount=@i">@i</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" href="/Releasers/Index?PageCount=@i">@i</a></li>
+            }
+        }
+        <li class="page-item @nextDisabled">
+            <a class="page-link" href="/Releasers/Index?PageCount=@nextIndex" aria-label="Next">
+                <span aria-hidden="true">></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul>
+</nav>

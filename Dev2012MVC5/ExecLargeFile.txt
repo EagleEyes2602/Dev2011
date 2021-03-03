@@ -1,0 +1,1 @@
+Sqlcmd -U [login id] -P [password] -S [server] -i [C:\<your file here>.sql]
