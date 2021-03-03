@@ -163,6 +163,7 @@
       <DependentUpon>QuanLyThuVien.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InformationModel.cs" />
+    <Compile Include="Models\MetaData\PublisherMetaData.cs" />
     <Compile Include="Models\Publisher.cs">
       <DependentUpon>QuanLyThuVien.tt</DependentUpon>
     </Compile>
