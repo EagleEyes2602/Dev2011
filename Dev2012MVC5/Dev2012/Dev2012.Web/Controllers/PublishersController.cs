@@ -10,7 +10,7 @@ using Dev2012.Web.Models;
 
 namespace Dev2012.Web.Controllers
 {
-    public class PublishersController : Controller
+    public class PublishersController : BaseController
     {
         private QuanLyThuVienEntities db = new QuanLyThuVienEntities();
 

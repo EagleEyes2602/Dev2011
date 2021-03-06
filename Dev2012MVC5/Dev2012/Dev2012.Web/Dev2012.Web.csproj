@@ -128,12 +128,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PublishersController.cs" />
     <Compile Include="Controllers\ReleasersController.cs" />
+    <Compile Include="Filters\AuthenticationFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Cryptography.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\Author.cs">
       <DependentUpon>QuanLyThuVien.tt</DependentUpon>
@@ -163,6 +167,7 @@
       <DependentUpon>QuanLyThuVien.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InformationModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MetaData\PublisherMetaData.cs" />
     <Compile Include="Models\Publisher.cs">
       <DependentUpon>QuanLyThuVien.tt</DependentUpon>
@@ -280,9 +285,11 @@
     <Content Include="Views\Releasers\Details.cshtml" />
     <Content Include="Views\Releasers\Edit.cshtml" />
     <Content Include="Views\Releasers\Index.cshtml" />
+    <Content Include="Views\Authentication\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

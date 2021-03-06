@@ -11,7 +11,7 @@ using Dev2012.Web.ViewModel;
 
 namespace Dev2012.Web.Controllers
 {
-    public class ReleasersController : Controller
+    public class ReleasersController : BaseController
     {
         private QuanLyThuVienEntities db = new QuanLyThuVienEntities();
 
