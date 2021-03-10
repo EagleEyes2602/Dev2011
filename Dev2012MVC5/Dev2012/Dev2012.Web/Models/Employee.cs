@@ -22,6 +22,7 @@ namespace Dev2012.Web.Models
         public string Password { get; set; }
         public string Phone { get; set; }
         public byte Gender { get; set; }
+        public Nullable<int> RoleId { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
         public Nullable<System.DateTime> CreatedTime { get; set; }
         public Nullable<System.DateTime> UpdatedTime { get; set; }

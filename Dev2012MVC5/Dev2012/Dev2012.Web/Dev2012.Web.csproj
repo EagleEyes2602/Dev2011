@@ -137,6 +137,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Authorize.cs" />
     <Compile Include="Helpers\Cryptography.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\Author.cs">
@@ -169,6 +170,9 @@
     <Compile Include="Models\InformationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MetaData\PublisherMetaData.cs" />
+    <Compile Include="Models\Permissions.cs">
+      <DependentUpon>QuanLyThuVien.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Publisher.cs">
       <DependentUpon>QuanLyThuVien.tt</DependentUpon>
     </Compile>
@@ -194,6 +198,12 @@
       <DependentUpon>QuanLyThuVien.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Review.cs">
+      <DependentUpon>QuanLyThuVien.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RolePermissions.cs">
+      <DependentUpon>QuanLyThuVien.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Roles.cs">
       <DependentUpon>QuanLyThuVien.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\spud_Admin_GetAll_Result.cs">
@@ -232,8 +242,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\QuanLyThuVien.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>QuanLyThuVien.Context.cs</LastGenOutput>
       <DependentUpon>QuanLyThuVien.edmx</DependentUpon>
+      <LastGenOutput>QuanLyThuVien.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\QuanLyThuVien.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -286,6 +296,7 @@
     <Content Include="Views\Releasers\Edit.cshtml" />
     <Content Include="Views\Releasers\Index.cshtml" />
     <Content Include="Views\Authentication\Login.cshtml" />
+    <Content Include="Views\Authentication\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

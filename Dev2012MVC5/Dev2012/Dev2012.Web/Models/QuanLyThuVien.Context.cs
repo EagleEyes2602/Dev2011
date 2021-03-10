@@ -36,10 +36,13 @@ namespace Dev2012.Web.Models
         public virtual DbSet<BookType> BookType { get; set; }
         public virtual DbSet<ColumnName> ColumnName { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
+        public virtual DbSet<Permissions> Permissions { get; set; }
         public virtual DbSet<Publisher> Publisher { get; set; }
         public virtual DbSet<Reader> Reader { get; set; }
         public virtual DbSet<Releaser> Releaser { get; set; }
         public virtual DbSet<Review> Review { get; set; }
+        public virtual DbSet<RolePermissions> RolePermissions { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<SystemConfigParameter> SystemConfigParameter { get; set; }
         public virtual DbSet<TableName> TableName { get; set; }

@@ -12,11 +12,16 @@ namespace Dev2012.Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Publisher
+    public partial class Roles
     {
         public int Id { get; set; }
-        public string Code { get; set; }
         public string Name { get; set; }
+        public Nullable<System.DateTime> CreatedTime { get; set; }
+        public Nullable<System.DateTime> UpdatedTime { get; set; }
+        public Nullable<System.DateTime> DeletedTime { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<int> UpdatedBy { get; set; }
+        public Nullable<int> DeletedBy { get; set; }
         public string Notes { get; set; }
         public Nullable<byte> Status { get; set; }
         public Nullable<bool> IsDelete { get; set; }

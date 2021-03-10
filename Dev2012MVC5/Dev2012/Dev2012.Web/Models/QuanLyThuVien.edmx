@@ -134,7 +134,26 @@
           <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Gender" Type="tinyint" Nullable="false" />
+          <Property Name="RoleId" Type="int" />
           <Property Name="DOB" Type="datetime" />
+          <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="UpdatedTime" Type="datetime" />
+          <Property Name="DeletedTime" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="DeletedBy" Type="int" />
+          <Property Name="Notes" Type="ntext" />
+          <Property Name="Status" Type="tinyint" />
+          <Property Name="IsDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="ControllerName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ActionName" Type="nvarchar" MaxLength="255" />
           <Property Name="CreatedTime" Type="datetime" />
           <Property Name="UpdatedTime" Type="datetime" />
           <Property Name="DeletedTime" Type="datetime" />
@@ -205,6 +224,30 @@
           <Property Name="BookTitleId" Type="int" Nullable="false" />
           <Property Name="Point" Type="tinyint" />
           <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="IsDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="RolePermissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="UpdatedTime" Type="datetime" />
+          <Property Name="DeletedTime" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="DeletedBy" Type="int" />
+          <Property Name="Notes" Type="ntext" />
+          <Property Name="Status" Type="tinyint" />
           <Property Name="IsDelete" Type="bit" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -295,10 +338,13 @@
           <EntitySet Name="BookType" EntityType="Self.BookType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ColumnName" EntityType="Self.ColumnName" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Publisher" EntityType="Self.Publisher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reader" EntityType="Self.Reader" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Releaser" EntityType="Self.Releaser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolePermissions" EntityType="Self.RolePermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemConfigParameter" EntityType="Self.SystemConfigParameter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TableName" EntityType="Self.TableName" Schema="dbo" store:Type="Tables" />
@@ -437,7 +483,26 @@
           <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Gender" Type="Byte" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" />
           <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedTime" Type="DateTime" Precision="3" />
+          <Property Name="DeletedTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Byte" />
+          <Property Name="IsDelete" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ControllerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ActionName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CreatedTime" Type="DateTime" Precision="3" />
           <Property Name="UpdatedTime" Type="DateTime" Precision="3" />
           <Property Name="DeletedTime" Type="DateTime" Precision="3" />
@@ -510,6 +575,30 @@
           <Property Name="CreatedTime" Type="DateTime" Precision="3" />
           <Property Name="IsDelete" Type="Boolean" />
         </EntityType>
+        <EntityType Name="RolePermissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedTime" Type="DateTime" Precision="3" />
+          <Property Name="DeletedTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Byte" />
+          <Property Name="IsDelete" Type="Boolean" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -549,10 +638,13 @@
           <EntitySet Name="BookType" EntityType="Self.BookType" />
           <EntitySet Name="ColumnName" EntityType="Self.ColumnName" />
           <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" />
           <EntitySet Name="Publisher" EntityType="Self.Publisher" />
           <EntitySet Name="Reader" EntityType="Self.Reader" />
           <EntitySet Name="Releaser" EntityType="Self.Releaser" />
           <EntitySet Name="Review" EntityType="Self.Review" />
+          <EntitySet Name="RolePermissions" EntityType="Self.RolePermissions" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="SystemConfigParameter" EntityType="Self.SystemConfigParameter" />
           <EntitySet Name="TableName" EntityType="Self.TableName" />
@@ -774,7 +866,27 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="DeletedTime" ColumnName="DeletedTime" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="QuanLyThuVienModel.Permissions">
+              <MappingFragment StoreEntitySet="Permissions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
                 <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
                 <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
                 <ScalarProperty Name="DeletedTime" ColumnName="DeletedTime" />
@@ -849,6 +961,32 @@
                 <ScalarProperty Name="BookTitleId" ColumnName="BookTitleId" />
                 <ScalarProperty Name="Point" ColumnName="Point" />
                 <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolePermissions">
+            <EntityTypeMapping TypeName="QuanLyThuVienModel.RolePermissions">
+              <MappingFragment StoreEntitySet="RolePermissions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="QuanLyThuVienModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="DeletedTime" ColumnName="DeletedTime" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
               </MappingFragment>
             </EntityTypeMapping>
